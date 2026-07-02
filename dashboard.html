@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — STACKLY Events</title>
+  <link rel="stylesheet" href="css/style.css?v=1" />
+  <style>
+    body { background: var(--bg-alt); display: flex; min-height: 100vh; padding-top: 0; }
+    .dashboard-sidebar { width: 280px; background: var(--bg-card-solid); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: fixed; top: 0; bottom: 0; left: 0; z-index: 100; transition: transform 0.3s var(--ease); }
+    .sidebar-header { padding: 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .sidebar-logo img { height: 32px; width: auto; filter: brightness(0) invert(1); }
+    .sidebar-close { display: none; background: none; border: none; color: var(--text-main); cursor: pointer; }
+    .sidebar-user { padding: 1.5rem; display: flex; align-items: center; gap: 1rem; border-bottom: 1px solid var(--border); }
+    .sidebar-user-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; color: var(--bg-main); font-size: 1.2rem; font-weight: 700; flex-shrink: 0; }
+    .sidebar-user-info { overflow: hidden; }
+    .sidebar-user-name { font-weight: 700; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-main); }
+    .sidebar-user-role { font-size: 0.8rem; color: var(--primary); font-weight: 600; }
+    .sidebar-nav { padding: 1.5rem 1rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+    .sidebar-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1rem; color: var(--text-secondary); border-radius: var(--radius-md); font-weight: 500; font-size: 0.95rem; transition: all 0.2s; text-decoration: none; }
+    .sidebar-link:hover { background: rgba(255,255,255,0.04); color: var(--text-main); }
+    .sidebar-link.active { background: rgba(200,247,49,0.06); color: var(--primary); }
+    .sidebar-link.active svg { color: var(--primary); }
+    .sidebar-link svg { color: var(--text-light); transition: all 0.2s; }
+    .sidebar-footer { padding: 1rem; border-top: 1px solid var(--border); }
+    .logout-btn { display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.85rem 1rem; color: var(--danger); background: rgba(239,68,68,0.05); border: none; border-radius: var(--radius-md); font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; }
+    .logout-btn:hover { background: rgba(239,68,68,0.1); }
+    .dashboard-main { flex: 1; margin-left: 280px; padding: 2rem; display: flex; flex-direction: column; min-height: 100vh; }
+    .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    .dashboard-title { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 800; color: var(--text-main); }
+    .mobile-menu-btn { display: none; background: var(--bg-card-solid); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 0.5rem; cursor: pointer; color: var(--text-main); }
+    .dash-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+    .dash-stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 1.5rem; display: flex; align-items: center; gap: 1.25rem; }
+    .dash-stat-icon { width: 56px; height: 56px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .dash-stat-info h4 { font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; margin-bottom: 0.25rem; }
+    .dash-stat-info .val { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; color: var(--text-main); line-height: 1; }
+    .dash-row { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
+    .dash-panel { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 1.5rem; }
+    .dash-panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+    .dash-panel-title { font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; color: var(--text-main); }
+    .activity-list { display: flex; flex-direction: column; gap: 1rem; }
+    .activity-item { display: flex; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .activity-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .activity-icon { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.04); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--primary); }
+    .activity-details p { font-size: 0.9rem; font-weight: 500; color: var(--text-main); margin-bottom: 0.2rem; }
+    .activity-details span { font-size: 0.8rem; color: var(--text-secondary); }
+    .action-btn-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .action-btn { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem; color: var(--text-main); transition: all 0.2s; cursor: pointer; text-decoration: none; }
+    .action-btn:hover { background: rgba(255,255,255,0.04); border-color: var(--primary); color: var(--primary); transform: translateX(4px); }
+    @media (max-width: 1023px) { .dashboard-sidebar { transform: translateX(-100%); } .dashboard-sidebar.open { transform: translateX(0); } .dashboard-main { margin-left: 0; } .mobile-menu-btn { display: block; } .sidebar-close { display: block; } .dash-row { grid-template-columns: 1fr; } }
+    @media (max-width: 767px) { .dash-stats-grid { grid-template-columns: 1fr; } .dashboard-main { padding: 1.25rem; } }
+  </style>
+</head>
+<body>
+
+<aside class="dashboard-sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <a href="index.html" class="sidebar-logo"><img src="images/logo-stackly.webp" alt="STACKLY" /></a>
+    <button class="sidebar-close" id="closeSidebar"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="sidebar-user">
+    <div class="sidebar-user-avatar" id="userAvatar">U</div>
+    <div class="sidebar-user-info">
+      <div class="sidebar-user-name" id="userName">User Name</div>
+      <div class="sidebar-user-role" id="userRole">Role</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="dashboard.html" class="sidebar-link active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Overview</a>
+    <a href="events.html" class="sidebar-link"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> My Events</a>
+    <a href="settings.html" class="sidebar-link"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg> Settings</a>
+  </nav>
+  <div class="sidebar-footer">
+    <button onclick="authLogout()" class="logout-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Logout</button>
+  </div>
+</aside>
+
+<div id="sidebarOverlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90;display:none;opacity:0;transition:opacity 0.3s;"></div>
+
+<main class="dashboard-main">
+  <header class="dashboard-header">
+    <div>
+      <h1 class="dashboard-title">Overview</h1>
+      <p style="color:var(--text-secondary);font-size:0.95rem;margin-top:0.2rem;">Welcome back, <span id="welcomeName">User</span>.</p>
+    </div>
+    <div style="display:flex; align-items:center; gap:1.5rem;">
+      <p style="color:var(--primary);font-size:0.9rem;font-weight:600;margin:0;text-align:right;" id="welcomeEmail"></p>
+      <button class="mobile-menu-btn" id="openSidebar"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </header>
+
+  <div class="dash-stats-grid">
+    <div class="dash-stat-card">
+      <div class="dash-stat-icon" style="background:rgba(var(--primary-rgb),0.1);color:var(--primary);"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+      <div class="dash-stat-info"><h4>Total Bookings</h4><div class="val">8</div></div>
+    </div>
+    <div class="dash-stat-card">
+      <div class="dash-stat-icon" style="background:rgba(139,92,246,0.1);color:#8B5CF6;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="dash-stat-info"><h4>Upcoming Events</h4><div class="val">3</div></div>
+    </div>
+    <div class="dash-stat-card">
+      <div class="dash-stat-icon" style="background:rgba(34,211,238,0.1);color:#22D3EE;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+      <div class="dash-stat-info"><h4>Tickets Purchased</h4><div class="val">12</div></div>
+    </div>
+  </div>
+
+  <div class="dash-row">
+    <div class="dash-panel">
+      <div class="dash-panel-header">
+        <h2 class="dash-panel-title">Recent Activity</h2>
+        <a href="events.html" style="font-size:0.85rem;font-weight:600;color:var(--primary);text-decoration:none;">View All</a>
+      </div>
+      <div class="activity-list">
+        <div class="activity-item">
+          <div class="activity-icon" style="background:rgba(var(--primary-rgb),0.08);color:var(--primary);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="activity-details"><p>Ticket Confirmed — Tech Conference 2026</p><span>Bangalore • Today, 10:30 AM</span></div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-icon" style="background:rgba(139,92,246,0.08);color:#8B5CF6;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="activity-details"><p>Event Reminder — Design Workshop</p><span>Mumbai • Tomorrow, 2:00 PM</span></div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-icon" style="background:rgba(34,211,238,0.08);color:#22D3EE;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div class="activity-details"><p>New Event Booked — AI Summit 2027</p><span>Hyderabad • Oct 15, 2026</span></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="dash-panel">
+      <div class="dash-panel-header"><h2 class="dash-panel-title">Quick Actions</h2></div>
+      <div class="action-btn-list">
+        <a href="index.html" class="action-btn"><span>Browse Events</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        <a href="events.html" class="action-btn"><span>My Events</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        <a href="settings.html" class="action-btn"><span>Edit Profile</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        <a href="contact.html" class="action-btn"><span>Contact Support</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="toast-container" aria-live="polite"></div>
+<script src="js/auth.js"></script>
+<script src="js/main.js"></script>
+<script>
+  const user = authGetUser();
+  if (!user) { window.location.href = 'login.html'; }
+  else {
+    document.getElementById('userName').textContent = user.name;
+    document.getElementById('welcomeName').textContent = user.name.split(' ')[0];
+    document.getElementById('welcomeEmail').textContent = user.email;
+    document.getElementById('userRole').textContent = user.role || 'Attendee';
+    document.getElementById('userAvatar').textContent = (user.name[0] || 'U').toUpperCase();
+  }
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  const openBtn = document.getElementById('openSidebar');
+  const closeBtn = document.getElementById('closeSidebar');
+  function openSidebar() { sidebar.classList.add('open'); overlay.style.display = 'block'; setTimeout(() => overlay.style.opacity = '1', 10); }
+  function closeSidebarFunc() { sidebar.classList.remove('open'); overlay.style.opacity = '0'; setTimeout(() => overlay.style.display = 'none', 300); }
+  openBtn.addEventListener('click', openSidebar);
+  closeBtn.addEventListener('click', closeSidebarFunc);
+  overlay.addEventListener('click', closeSidebarFunc);
+</script>
+</body>
+</html>

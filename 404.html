@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Not Found — STACKLY Events</title>
+  <link rel="stylesheet" href="css/style.css?v=1" />
+  <style>
+    body { background: var(--bg-main); display: flex; flex-direction: column; min-height: 100vh; }
+    .error-wrapper { flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem; position: relative; overflow: hidden; text-align: center; }
+    .error-bg-shape { position: absolute; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.3; }
+    .error-bg-shape-1 { top: 10%; left: 10%; width: 400px; height: 400px; background: rgba(200,247,49,0.1); animation: float 10s infinite ease-in-out alternate; }
+    .error-bg-shape-2 { bottom: 10%; right: 10%; width: 500px; height: 500px; background: rgba(139,92,246,0.1); animation: float 12s infinite ease-in-out alternate-reverse; }
+    .error-content { max-width: 600px; z-index: 1; position: relative; }
+    .error-code { font-family: var(--font-heading); font-size: 8rem; font-weight: 900; line-height: 1; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 10px 20px rgba(200,247,49,0.15)); }
+    .error-title { font-family: var(--font-heading); font-size: 2rem; font-weight: 800; color: var(--text-main); margin-bottom: 1rem; }
+    .error-desc { color: var(--text-secondary); font-size: 1rem; margin-bottom: 2.5rem; line-height: 1.6; }
+    .floating-icon { position: absolute; z-index: 0; opacity: 0.06; animation: float 8s ease-in-out infinite; color: var(--primary); }
+    .icon-1 { top: 20%; right: 15%; }
+    .icon-2 { bottom: 25%; left: 12%; animation-delay: -3s; }
+    @keyframes float { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(-20px) rotate(15deg); } }
+    @media (min-width: 768px) { .error-code { font-size: 12rem; } .error-title { font-size: 2.5rem; } }
+  </style>
+</head>
+<body>
+<div id="page-loader" role="status" aria-label="Loading">
+  <div class="loader-content">
+    <div class="loader-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+    <img src="images/logo-stackly.webp" alt="STACKLY" class="loader-center-logo" />
+    <h3 class="loader-brand-text">STACKLY <span>EVENTS</span></h3>
+    <div class="loader-bar-wrap"><div class="loader-bar-fill"></div></div>
+    <div class="loader-status" id="loaderStatus">Preparing Stage...</div>
+  </div>
+</div>
+<nav class="navbar"><div class="nav-inner"><a href="index.html" class="nav-logo"><img src="images/logo-stackly.webp" alt="STACKLY" /></a><ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="404.html">Events</a></li><li><a href="404.html">Schedule</a></li><li><a href="404.html">Venue</a></li><li><a href="contact.html">Contact Us</a></li></ul><div style="display:flex;align-items:center;gap:0.75rem;"><div class="nav-login-btn-wrap"><a href="login.html" class="nav-login-btn">Login</a></div></div><button class="nav-hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button></div></nav>
+<div class="mobile-menu"><a href="index.html">Home</a><a href="404.html">Events</a><a href="404.html">Schedule</a><a href="404.html">Venue</a><a href="contact.html">Contact Us</a><div class="mobile-login-wrap"><a href="login.html" style="display:flex;align-items:center;justify-content:center;padding:0.8rem;border-radius:999px;background:var(--primary);color:var(--bg-main);font-weight:700;font-size:0.9rem;">Login</a></div></div>
+
+<div class="error-wrapper">
+  <div class="error-bg-shape error-bg-shape-1"></div>
+  <div class="error-bg-shape error-bg-shape-2"></div>
+  <svg class="floating-icon icon-1" width="80" height="80" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2"/><line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2"/></svg>
+  <svg class="floating-icon icon-2" width="60" height="60" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+
+  <div class="error-content" data-anim="scale-in">
+    <div class="error-code">404</div>
+    <h1 class="error-title">Page Not Found</h1>
+    <p class="error-desc">The page you are looking for might have been removed, had its name changed, or is temporarily unavailable. Let's get you back on track.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <button onclick="history.back()" class="btn btn-outline btn-lg">Go Back</button>
+      <a href="index.html" class="btn btn-primary btn-lg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:0.5rem;"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to Home</a>
+    </div>
+  </div>
+</div>
+
+<script src="js/auth.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
