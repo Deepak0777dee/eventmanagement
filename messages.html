@@ -94,6 +94,7 @@
     <div class="sidebar-user-avatar" id="userAvatar">U</div>
     <div class="sidebar-user-info">
       <div class="sidebar-user-name" id="userName">User Name</div>
+      <div class="sidebar-user-email" id="userEmail" style="font-size: 0.75rem; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">user@example.com</div>
       <div class="sidebar-user-role" id="userRole">Role</div>
     </div>
   </div>
@@ -207,6 +208,7 @@
   if (!user) { window.location.href = 'login.html'; }
   else {
     document.getElementById('userName').textContent = user.name;
+    if(document.getElementById('userEmail')) document.getElementById('userEmail').textContent = user.email;
     document.getElementById('welcomeEmail').textContent = user.email;
     document.getElementById('userRole').textContent = user.role || 'Attendee';
     document.getElementById('userAvatar').textContent = (user.name[0] || 'U').toUpperCase();

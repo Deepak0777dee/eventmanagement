@@ -48,7 +48,7 @@
     .action-btn { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem; color: var(--text-main); transition: all 0.2s; cursor: pointer; text-decoration: none; }
     .action-btn:hover { background: rgba(255,255,255,0.04); border-color: var(--primary); color: var(--primary); transform: translateX(4px); }
     @media (max-width: 1023px) { .dashboard-sidebar { transform: translateX(-100%); } .dashboard-sidebar.open { transform: translateX(0); } .dashboard-main { margin-left: 0; } .mobile-menu-btn { display: block; } .sidebar-close { display: block; } .dash-row { grid-template-columns: 1fr; } }
-    @media (max-width: 767px) { .dash-stats-grid { grid-template-columns: 1fr; } .dashboard-main { padding: 1.25rem; } .welcome-email { display: none; } }
+    @media (max-width: 767px) { .dash-stats-grid { grid-template-columns: 1fr; } .dashboard-main { padding: 1.25rem; } .welcome-email { display: none; } .welcome-email-mobile { display: block !important; margin-top: 0.2rem; color: var(--primary); font-size: 0.85rem; font-weight: 600; } }
   </style>
 </head>
 <body>
@@ -62,6 +62,7 @@
     <div class="sidebar-user-avatar" id="userAvatar">U</div>
     <div class="sidebar-user-info">
       <div class="sidebar-user-name" id="userName">User Name</div>
+      <div class="sidebar-user-email" id="userEmail" style="font-size: 0.75rem; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">user@example.com</div>
       <div class="sidebar-user-role" id="userRole">Role</div>
     </div>
   </div>
@@ -83,7 +84,7 @@
   <header class="dashboard-header">
     <div style="min-width: 0;">
       <h1 class="dashboard-title">Overview</h1>
-      <p style="color:var(--text-secondary);font-size:0.95rem;margin-top:0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Welcome back, <span id="welcomeName">User</span>.</p>
+      <p style="color:var(--text-secondary);font-size:0.95rem;margin-top:0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Welcome back, <span id="welcomeName">User</span>.<br><span class="welcome-email-mobile" id="welcomeEmailMobile" style="display:none;"></span></p>
     </div>
     <div style="display:flex; align-items:center; gap:1rem; flex-shrink: 0;">
       <p class="welcome-email" style="color:var(--primary);font-size:0.9rem;font-weight:600;margin:0;text-align:right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px;" id="welcomeEmail"></p>
@@ -156,8 +157,10 @@
   if (!user) { window.location.href = 'login.html'; }
   else {
     document.getElementById('userName').textContent = user.name;
+    if(document.getElementById('userEmail')) document.getElementById('userEmail').textContent = user.email;
     document.getElementById('welcomeName').textContent = user.name.split(' ')[0];
     document.getElementById('welcomeEmail').textContent = user.email;
+    if(document.getElementById('welcomeEmailMobile')) document.getElementById('welcomeEmailMobile').textContent = user.email;
     document.getElementById('userRole').textContent = user.role || 'Attendee';
     document.getElementById('userAvatar').textContent = (user.name[0] || 'U').toUpperCase();
   }
