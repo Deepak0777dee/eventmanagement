@@ -135,24 +135,21 @@
     <p class="catalog-hero-desc">From massive tech summits to intimate music festivals, browse our curated collection of premium events happening near you.</p>
   </div>
 
-  <div class="filter-bar" data-anim="fade-up" data-delay="100">
-    <div class="search-input-wrap">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" placeholder="Search for events, venues, or categories..." />
-    </div>
-    <div class="filter-tags">
-      <div class="filter-tag active">All</div>
-      <div class="filter-tag">Tech</div>
-      <div class="filter-tag">Music</div>
-      <div class="filter-tag">Workshops</div>
-      <div class="filter-tag">Conferences</div>
-      <div class="filter-tag">Business</div>
+  <div class="filter-bar" data-anim="fade-up" data-delay="100" style="justify-content: flex-start;">
+    <div class="filter-tags" id="categoryFilters">
+      <div class="filter-tag active" data-filter="all">All</div>
+      <div class="filter-tag" data-filter="tech">Tech</div>
+      <div class="filter-tag" data-filter="music">Music</div>
+      <div class="filter-tag" data-filter="workshop">Workshops</div>
+      <div class="filter-tag" data-filter="conference">Conferences</div>
+      <div class="filter-tag" data-filter="business">Business</div>
+      <div class="filter-tag" data-filter="hackathon">Hackathons</div>
     </div>
   </div>
 
   <div class="events-grid" data-anim="fade-up" data-delay="200" style="margin-bottom: 6rem;">
     <!-- Event 1 -->
-    <div class="event-card">
+    <div class="event-card" data-category="tech">
       <div style="overflow:hidden;border-radius:var(--radius-lg) var(--radius-lg) 0 0; position:relative;">
         <span style="position:absolute; top:1rem; left:1rem; background:rgba(0,0,0,0.8); backdrop-filter:blur(4px); padding:0.4rem 0.8rem; border-radius:var(--radius-full); font-size:0.75rem; font-weight:700; color:var(--primary); border:1px solid rgba(var(--primary-rgb),0.3); z-index:2;">TECH</span>
         <img src="images/hero_event_1.webp" alt="Global Tech Conference 2026" class="event-card-img" />
@@ -161,11 +158,11 @@
         <div class="event-card-date">Dec 15, 2026</div>
         <div class="event-card-title">Global Tech Conference 2026</div>
         <div class="event-card-location"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Bangalore, India</div>
-        <button class="event-card-btn" onclick="window.location.href='login.html'">Book Ticket - $199</button>
+        <button class="event-card-btn" onclick="window.location.href='404.html'">Book Ticket - $199</button>
       </div>
     </div>
     <!-- Event 2 -->
-    <div class="event-card">
+    <div class="event-card" data-category="workshop">
       <div style="overflow:hidden;border-radius:var(--radius-lg) var(--radius-lg) 0 0; position:relative;">
         <span style="position:absolute; top:1rem; left:1rem; background:rgba(0,0,0,0.8); backdrop-filter:blur(4px); padding:0.4rem 0.8rem; border-radius:var(--radius-full); font-size:0.75rem; font-weight:700; color:#22D3EE; border:1px solid rgba(34,211,238,0.3); z-index:2;">WORKSHOP</span>
         <img src="images/hero_event_2.webp" alt="Design Thinking Workshop" class="event-card-img" />
@@ -174,11 +171,11 @@
         <div class="event-card-date">Jan 08, 2027</div>
         <div class="event-card-title">Design Thinking Workshop</div>
         <div class="event-card-location"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Mumbai, India</div>
-        <button class="event-card-btn" onclick="window.location.href='login.html'">Book Ticket - $99</button>
+        <button class="event-card-btn" onclick="window.location.href='404.html'">Book Ticket - $99</button>
       </div>
     </div>
     <!-- Event 3 -->
-    <div class="event-card">
+    <div class="event-card" data-category="music">
       <div style="overflow:hidden;border-radius:var(--radius-lg) var(--radius-lg) 0 0; position:relative;">
         <span style="position:absolute; top:1rem; left:1rem; background:rgba(0,0,0,0.8); backdrop-filter:blur(4px); padding:0.4rem 0.8rem; border-radius:var(--radius-full); font-size:0.75rem; font-weight:700; color:#F97316; border:1px solid rgba(249,115,22,0.3); z-index:2;">MUSIC</span>
         <img src="images/hero_event_3.webp" alt="Neon Nights Festival" class="event-card-img" />
@@ -187,11 +184,11 @@
         <div class="event-card-date">Feb 20, 2027</div>
         <div class="event-card-title">Neon Nights Music Festival</div>
         <div class="event-card-location"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Goa, India</div>
-        <button class="event-card-btn" onclick="window.location.href='login.html'">Book Ticket - $149</button>
+        <button class="event-card-btn" onclick="window.location.href='404.html'">Book Ticket - $149</button>
       </div>
     </div>
     <!-- Event 4 -->
-    <div class="event-card">
+    <div class="event-card" data-category="conference">
       <div style="overflow:hidden;border-radius:var(--radius-lg) var(--radius-lg) 0 0; position:relative;">
         <span style="position:absolute; top:1rem; left:1rem; background:rgba(0,0,0,0.8); backdrop-filter:blur(4px); padding:0.4rem 0.8rem; border-radius:var(--radius-full); font-size:0.75rem; font-weight:700; color:#22C55E; border:1px solid rgba(34,197,94,0.3); z-index:2;">CONFERENCE</span>
         <img src="images/hero_event_4.webp" alt="AI & Future Tech Summit" class="event-card-img" />
@@ -200,11 +197,11 @@
         <div class="event-card-date">Mar 10, 2027</div>
         <div class="event-card-title">AI & Future Tech Summit</div>
         <div class="event-card-location"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Hyderabad, India</div>
-        <button class="event-card-btn" onclick="window.location.href='login.html'">Book Ticket - $299</button>
+        <button class="event-card-btn" onclick="window.location.href='404.html'">Book Ticket - $299</button>
       </div>
     </div>
     <!-- Event 5 -->
-    <div class="event-card">
+    <div class="event-card" data-category="business">
       <div style="overflow:hidden;border-radius:var(--radius-lg) var(--radius-lg) 0 0; position:relative;">
         <span style="position:absolute; top:1rem; left:1rem; background:rgba(0,0,0,0.8); backdrop-filter:blur(4px); padding:0.4rem 0.8rem; border-radius:var(--radius-full); font-size:0.75rem; font-weight:700; color:var(--primary); border:1px solid rgba(var(--primary-rgb),0.3); z-index:2;">BUSINESS</span>
         <img src="images/hero_event_5.webp" alt="Global Leadership Forum" class="event-card-img" />
@@ -213,11 +210,11 @@
         <div class="event-card-date">Apr 05, 2027</div>
         <div class="event-card-title">Global Leadership Forum</div>
         <div class="event-card-location"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> New Delhi, India</div>
-        <button class="event-card-btn" onclick="window.location.href='login.html'">Book Ticket - $499</button>
+        <button class="event-card-btn" onclick="window.location.href='404.html'">Book Ticket - $499</button>
       </div>
     </div>
     <!-- Event 6 -->
-    <div class="event-card">
+    <div class="event-card" data-category="hackathon">
       <div style="overflow:hidden;border-radius:var(--radius-lg) var(--radius-lg) 0 0; position:relative;">
         <span style="position:absolute; top:1rem; left:1rem; background:rgba(0,0,0,0.8); backdrop-filter:blur(4px); padding:0.4rem 0.8rem; border-radius:var(--radius-full); font-size:0.75rem; font-weight:700; color:#EC4899; border:1px solid rgba(236,72,153,0.3); z-index:2;">HACKATHON</span>
         <img src="images/hero_event_6.webp" alt="Hack Web3 2027" class="event-card-img" />
@@ -226,7 +223,7 @@
         <div class="event-card-date">May 12, 2027</div>
         <div class="event-card-title">Hack Web3 Builders 2027</div>
         <div class="event-card-location"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Pune, India</div>
-        <button class="event-card-btn" onclick="window.location.href='login.html'">Register - Free</button>
+        <button class="event-card-btn" onclick="window.location.href='404.html'">Register - Free</button>
       </div>
     </div>
   </div>
@@ -241,10 +238,34 @@
       <div>
         <div style="margin-bottom: var(--space-md);"><a href="index.html" class="nav-logo"><img src="images/logo-stackly.webp" alt="STACKLY" style="height:36px;width:auto;filter:brightness(0) invert(1);" /></a></div>
         <p class="footer-desc">Your ultimate destination for discovering and booking premium events. Conferences, workshops, concerts, and more — all in one place.</p>
+        <div class="footer-social">
+          <a href="404.html" aria-label="X"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="404.html" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="404.html" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="404.html" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg></a>
+        </div>
       </div>
       <div>
         <div class="footer-title">Navigate</div>
         <ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="events.html">Events</a></li><li><a href="schedule.html">Schedule</a></li><li><a href="venue.html">Venue</a></li></ul>
+      </div>
+      <div>
+        <div class="footer-title">Resources</div>
+        <ul class="footer-links"><li><a href="404.html">Documentation</a></li><li><a href="404.html">Blog</a></li><li><a href="404.html">FAQ</a></li><li><a href="contact.html">Support</a></li></ul>
+      </div>
+      <div>
+        <div class="footer-title">Subscribe to Our Newsletter</div>
+        <div class="footer-newsletter" style="margin-top:0.5rem;">
+          <input type="email" placeholder="Enter Your Email" />
+          <button aria-label="Subscribe" onclick="window.location.href='404.html'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="9 5 19 5 19 15"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 STACKLY. All Rights Reserved.</p>
+      <div style="display:flex; gap:1.5rem;">
+        <a href="404.html" style="color:var(--text-light); text-decoration:underline;">Terms & Agreements</a>
+        <a href="404.html" style="color:var(--text-light); text-decoration:underline;">Privacy Policy</a>
       </div>
     </div>
   </div>
@@ -254,5 +275,35 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filters = document.querySelectorAll('#categoryFilters .filter-tag');
+    const cards = document.querySelectorAll('.events-grid .event-card');
+
+    filters.forEach(filter => {
+      filter.addEventListener('click', () => {
+        filters.forEach(f => f.classList.remove('active'));
+        filter.classList.add('active');
+        
+        const target = filter.getAttribute('data-filter');
+        
+        cards.forEach(card => {
+          if (target === 'all' || card.getAttribute('data-category') === target) {
+            card.style.display = 'block';
+            if (typeof gsap !== 'undefined') {
+              gsap.fromTo(card, {opacity: 0, y: 15}, {opacity: 1, y: 0, duration: 0.4, clearProps: "all"});
+            }
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        
+        if (typeof ScrollTrigger !== 'undefined') {
+          ScrollTrigger.refresh();
+        }
+      });
+    });
+  });
+</script>
 </body>
 </html>
