@@ -221,6 +221,8 @@
   font-weight: 600;
   font-size: 1rem;
   outline: none;
+  min-width: 0;
+  text-overflow: ellipsis;
 }
 .hero-seat-cta input::placeholder { color: rgba(0,0,0,0.7); font-weight: 500; }
 .hero-seat-cta button {
@@ -346,17 +348,18 @@
   margin: 0;
 }
 .search-feature-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  padding: 1.5rem 2rem;
+  width: fit-content;
+  gap: 1.5rem;
+  padding: 1rem 1.5rem;
   background: #7C3AED;
   color: var(--bg-main);
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: 1.2rem;
-  border-radius: var(--radius-xl);
+  font-size: 1.1rem;
+  border-radius: var(--radius-full);
   text-decoration: none;
   transition: transform 0.2s, opacity 0.2s;
 }
@@ -575,4 +578,11 @@
 @media (min-width: 1024px) {
   .events-grid { grid-template-columns: repeat(4, 1fr); }
   .speakers-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 767px) {
+  .hero-card-right-top {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
 }
